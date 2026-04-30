@@ -1,0 +1,53 @@
+name: PropIntel AI CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Create backend env for CI
+        run: |
+          echo "GROQ_API_KEY=dummy_key_for_ci" >> backend/.env
+          echo "SECRET_KEY=dummy_secret" >> backend/.env
+          echo "JWT_SECRET_KEY=dummy_jwt_secret" >> backend/.env
+
+      - name: Check Docker Compose config
+        run: docker compose config
+
+      - name: Build Docker containers
+        run: docker compose build

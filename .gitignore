@@ -1,0 +1,60 @@
+# --------------------
+# Python
+# --------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environment
+venv/
+backend/venv/
+
+# Environment variables
+.env
+backend/.env
+frontend/.env
+
+# Database
+*.db
+*.sqlite3
+backend/database/*.db
+
+# Uploads / generated files
+uploads/
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# --------------------
+# Node / React
+# --------------------
+node_modules/
+frontend/node_modules/
+
+dist/
+build/
+frontend/dist/
+
+# Vite cache
+.vite/
+
+# Coverage
+coverage/
+
+# ESLint cache
+.eslintcache
+
+# Package lock (optional — keep if you want reproducible installs)
+# package-lock.json
